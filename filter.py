@@ -38,7 +38,7 @@ class XmlFilter():
         :return:
         '''
         value_list = list(item_dict.values())
-        if value_list[0]: # 处理这种情况{'t2': None}
+        if value_list[0]:  # 处理这种情况{'t2': None}
             for regex_name, regex_patern in REGEX_DICT.items():
                 match = re.search(regex_patern, value_list[0])
                 if match:
@@ -52,7 +52,11 @@ class XmlFilter():
             node_attrib_list = (list((node.attrib.items())))
             if node_attrib_list:
                 attrib_value = (node_attrib_list[0][1])
-                item_dict = {attrib_value: node.text}
+                value_attrib_value = (node.get('value', default=None))
+                if value_attrib_value:
+                    item_dict = {attrib_value: value_attrib_value}  # 情况:  <long name="aaa" value="xxx" />
+                else:
+                    item_dict = {attrib_value: node.text}  # 情况: <string name="aaa">bbb</string>
                 self.__keyword_search(item_dict)
                 self.__regex_search(item_dict)
         return self.result_dict

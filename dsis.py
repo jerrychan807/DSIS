@@ -20,7 +20,7 @@ for filepath in filepath_list:
     print(filepath)
     filter = XmlFilter(filepath)
     filter.filtering()
-    output = Output(filter.xml_filename, filter.result_dict)
-    output.draw_table()
-    if filter.result_dict:
+    if filter.result_dict["keyword"] or filter.result_dict["regex"]:
+        output = Output(filter.xml_filename, filter.result_dict)
+        output.draw_table()
         print(output.table)

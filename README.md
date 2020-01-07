@@ -40,6 +40,7 @@ python3 dsid.py <your-folder-path>
 
 - 支持更多文件后缀
 - 规则增强 
+- logcat日志
 
 ---
 
